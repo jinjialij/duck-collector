@@ -1,7 +1,10 @@
+import { Route, Switch } from "react-router-dom";
+
 import "./App.css";
 import DataForm from "./cmponents/DataForm/DataForm";
 import DuckTable from "./cmponents/DuckRecords/DuckTable";
 import Container from "react-bootstrap/Container";
+import MainNavigation from "./cmponents/Navigation/MainNavgation";
 
 function App() {
   const DUMMY_DATA = [
@@ -34,11 +37,16 @@ function App() {
   ];
   return (
     <>
+      <MainNavigation />
       <Container>
-        <h1 className="mb-3 text-center">Duck Data Form</h1>
-        <DataForm />
-        <h1 className="mb-3 text-center">Duck Data</h1>
-        <DuckTable ducks={DUMMY_DATA} />
+        <Switch>
+          <Route path="/" exact={true}>
+            <DataForm />
+          </Route>
+          <Route path="/ducks">
+            <DuckTable ducks={DUMMY_DATA} />
+          </Route>
+        </Switch>
       </Container>
     </>
   );
