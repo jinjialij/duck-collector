@@ -39,6 +39,7 @@ const DataForm = () => {
     >
       {(formik) => (
         <div>
+          <h1 className="mt-5 mb-3 text-center">Duck Data Form</h1>
           <Form>
             <FormField
               label="Date and time"
