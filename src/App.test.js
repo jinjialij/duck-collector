@@ -1,8 +1,16 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen } from "@testing-library/react";
+import App from "./App";
 
-// test('renders learn react link', () => {
-//   render(<App />);
-//   const linkElement = screen.getByText(/learn react/i);
-//   expect(linkElement).toBeInTheDocument();
-// });
+describe("Test app components", () => {
+  test("renders to check if Duck Data Form exists", () => {
+    render(<App />);
+    const thElement = screen.getByText("Duck Data Form");
+    expect(thElement).toBeInTheDocument();
+  });
+
+  test("renders to check if Duck Table exists", () => {
+    render(<App />);
+    const thElement = screen.getByText("Duck Data");
+    expect(thElement).toBeInTheDocument();
+  });
+});

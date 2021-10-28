@@ -6,7 +6,7 @@ import Container from "react-bootstrap/Container";
 function App() {
   const DUMMY_DATA = [
     {
-      id:1,
+      id: 1,
       address: "123 sss str",
       city: "halifax",
       country: "ca",
@@ -19,7 +19,7 @@ function App() {
       state: "ns",
     },
     {
-      id:2,
+      id: 2,
       address: "567 ddd str",
       city: "toronto",
       country: "ca",
@@ -35,7 +35,7 @@ function App() {
   return (
     <>
       <Container>
-        <h1 className="mb-3 text-center">Duck Data form</h1>
+        <h1 className="mb-3 text-center">Duck Data Form</h1>
         <DataForm />
         <h1 className="mb-3 text-center">Duck Data</h1>
         <DuckTable ducks={DUMMY_DATA} />
