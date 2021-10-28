@@ -6,7 +6,7 @@ function App() {
   return (
     <>
       <Container>
-        <h1>Data form</h1>
+        <h1 className="mb-3 text-center">Duck Data form</h1>
         <DataForm />
       </Container>
     </>

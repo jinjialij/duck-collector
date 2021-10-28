@@ -2,10 +2,11 @@ import FormField from "./FormField";
 import SelectField from "./SelectField";
 
 import { Formik, Form } from "formik";
+import * as Yup from "yup";
 
 const DataForm = () => {
   const initialValue = {
-    datetime: "",
+    recordDatetime: "",
     duckNum: "",
     food: "",
     foodVol: "",
@@ -14,13 +15,29 @@ const DataForm = () => {
     city: "",
     state: "",
     country: "",
-    zip: "",
+    postcode: "",
   };
 
+  const schema = Yup.object().shape({
+    recordDatetime: Yup.string().required("Required"),
+    duckNum: Yup.number().required("Required"),
+    food: Yup.string().required("Required"),
+    foodVol: Yup.number().required("Required"),
+    foodUnit: Yup.string().required("Required"),
+    address: Yup.string().required("Required"),
+    city: Yup.string().required("Required"),
+    state: Yup.string().required("Required"),
+    country: Yup.string().required("Required"),
+    postcode: Yup.string().required("Required"),
+  });
+
   return (
-    <Formik initialValues={initialValue}>
+    <Formik
+      initialValues={initialValue}
+      validationSchema={schema}
+      onSubmit={(values) => console.log(values)}
+    >
       {(formik) => (
-        // console.log(formik);
         <div>
           <Form>
             <FormField
@@ -41,12 +58,14 @@ const DataForm = () => {
             <FormField label="State/Province" name="state" type="text" />
             <FormField label="Country" name="country" type="text" />
             <FormField label="Post/Zip code" name="postcode" type="text" />
-            <button
-              className="btn btn-primary mb-3 mt-2 text-center"
-              type="submit"
-            >
-              Submit
-            </button>
+            <div className="text-center">
+              <button
+                className="btn btn-primary mb-3 mt-2 justify"
+                type="submit"
+              >
+                Submit
+              </button>
+            </div>
           </Form>
         </div>
       )}
