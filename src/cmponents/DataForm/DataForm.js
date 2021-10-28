@@ -4,13 +4,13 @@ import SelectField from "./SelectField";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 
-const DataForm = () => {
+const DataForm = (props) => {
   const initialValue = {
-    recordDatetime: "",
-    duckNum: "",
+    record_datetime: "",
+    duck_num: "",
     food: "",
-    foodVol: "",
-    foodUnit: "",
+    food_volume: "",
+    food_unit: "",
     address: "",
     city: "",
     state: "",
@@ -19,11 +19,11 @@ const DataForm = () => {
   };
 
   const schema = Yup.object().shape({
-    recordDatetime: Yup.string().required("Required"),
-    duckNum: Yup.number().required("Required"),
+    record_datetime: Yup.string().required("Required"),
+    duck_num: Yup.number().required("Required"),
     food: Yup.string().required("Required"),
-    foodVol: Yup.number().required("Required"),
-    foodUnit: Yup.string().required("Required"),
+    food_volume: Yup.number().required("Required"),
+    food_unit: Yup.string().required("Required"),
     address: Yup.string().required("Required"),
     city: Yup.string().required("Required"),
     state: Yup.string().required("Required"),
@@ -35,7 +35,12 @@ const DataForm = () => {
     <Formik
       initialValues={initialValue}
       validationSchema={schema}
-      onSubmit={(values) => console.log(values)}
+      onSubmit={(values) => {
+        console.log(values.record_datetime);
+        const datetime = values.record_datetime.replace("T", " ").concat(":00");
+        values.record_datetime = datetime;
+        props.onAddDuckData(values);
+      }}
     >
       {(formik) => (
         <div>
@@ -43,17 +48,17 @@ const DataForm = () => {
           <Form>
             <FormField
               label="Date and time"
-              name="recordDatetime"
+              name="record_datetime"
               type="datetime-local"
             />
             <FormField
               label="Number of Ducks You feed"
-              name="duckNum"
+              name="duck_num"
               type="number"
             />
             <FormField label="Food" name="food" type="text" />
-            <FormField label="Food Volume" name="foodVol" type="number" />
-            <SelectField label="Food Unit" name="foodUnit" />
+            <FormField label="Food Volume" name="food_volume" type="number" />
+            <SelectField label="Food Unit" name="food_unit" />
             <FormField label="Address" name="address" type="text" />
             <FormField label="City" name="city" type="text" />
             <FormField label="State/Province" name="state" type="text" />

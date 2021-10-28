@@ -20,13 +20,25 @@ function App() {
     const data = await response.json();
     setDucks(data.rows);
   }
+
+  const addDataHandler = (duck) => {
+    //post to db
+
+    //get it
+    // duck.id = 999;
+    setDucks((prev) => {
+      return [...prev, duck];
+    });
+    console.log(ducks);
+  };
+
   return (
     <>
       <MainNavigation />
       <Container>
         <Switch>
           <Route path="/" exact={true}>
-            <DataForm />
+            <DataForm onAddDuckData={addDataHandler} />
           </Route>
           <Route path="/ducks">
             <DuckTable ducks={ducks} />
