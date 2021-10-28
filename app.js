@@ -1,10 +1,12 @@
 const express = require("express");
+const cors = require("cors");
 const duckRouter = require("./routes/duck");
 const app = express();
 const port = 5000;
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.json({ message: "ok" });

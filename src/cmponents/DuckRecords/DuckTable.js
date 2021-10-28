@@ -9,16 +9,16 @@ const DuckTable = (props) => {
         <thead>
           <tr>
             <th>#</th>
+            <th>Date and Time</th>
+            <th>Duck Number</th>
+            <th>Food</th>
+            <th>Food Volume</th>
+            <th>Food Uint</th>
             <th>Address</th>
             <th>City</th>
             <th>State/Province</th>
             <th>Country</th>
             <th>Post/Zip code</th>
-            <th>Food</th>
-            <th>Uint</th>
-            <th>Volume</th>
-            <th>Numbers Of Feed Duck</th>
-            <th>Date and Time</th>
           </tr>
         </thead>
         {props.ducks.length > 0 &&
@@ -32,10 +32,10 @@ const DuckTable = (props) => {
               country={el.country}
               postcode={el.postcode}
               food={el.food}
-              foodVol={el.foodVol}
-              foodUnit={el.foodUnit}
-              duckNum={el.duckNum}
-              recordDatetime={el.recordDatetime}
+              foodVol={el.food_volume}
+              foodUnit={el.food_unit}
+              duckNum={el.duck_num}
+              recordDatetime={el.record_datetime}
             />
           ))}
       </Table>
