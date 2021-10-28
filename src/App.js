@@ -6,6 +6,7 @@ function App() {
   return (
     <>
       <Container>
+        <h1>Data form</h1>
         <DataForm />
       </Container>
     </>
