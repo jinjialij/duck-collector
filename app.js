@@ -1,12 +1,23 @@
 const express = require("express");
+const duckRouter = require("./routes/duck");
 const app = express();
-const port = 3000;
+const port = 5000;
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.json({ message: "ok" });
+});
+
+app.use("/ducks", duckRouter);
+
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  console.error(err.message, err.stack);
+  res.status(statusCode).json({ message: err.message });
+
+  return;
 });
 
 app.listen(port, () => {
