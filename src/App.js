@@ -21,16 +21,61 @@ function App() {
     setDucks(data.rows);
   }
 
-  const addDataHandler = (duck) => {
-    //post to db
+  async function createLocation(location) {
+    const url = "http://localhost:5000/ducks/location";
+    const response = await fetch(url, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(location),
+    });
+    const data = await response.json();
+    console.log(data);
+    return data;
+  }
 
-    //get it
-    // duck.id = 999;
+  async function createDuck(duck, locationId) {
+    const url = "http://localhost:5000/ducks/newduck";
+    duck.locationId = locationId;
+    const reqbody = JSON.stringify(duck);
+    console.log(reqbody);
+    const response = await fetch(url, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: reqbody,
+    });
+
+    const data = await response.json();
+    console.log(data);
+    return data;
+  }
+
+  async function addDataHandler(duck) {
+    //post location to db
+    const location = {
+      address: duck.address,
+      city: duck.city,
+      state: duck.state,
+      country: duck.country,
+      postcode: duck.postcode,
+    };
+    const locationId = await createLocation(location);
+
+    //post duck to db after retrive locationId
+    if (locationId) {
+      const duckId = await createDuck(duck, locationId);
+      duck.id = duckId;
+    }
+
     setDucks((prev) => {
       return [...prev, duck];
     });
-    console.log(ducks);
-  };
+  }
 
   return (
     <>

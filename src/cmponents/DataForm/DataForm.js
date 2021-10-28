@@ -35,11 +35,11 @@ const DataForm = (props) => {
     <Formik
       initialValues={initialValue}
       validationSchema={schema}
-      onSubmit={(values) => {
-        console.log(values.record_datetime);
-        const datetime = values.record_datetime.replace("T", " ").concat(":00");
+      onSubmit={(values, formikBag) => {
+        const datetime = values.record_datetime.replace("T", " ");
         values.record_datetime = datetime;
         props.onAddDuckData(values);
+        formikBag.resetForm(true);
       }}
     >
       {(formik) => (
