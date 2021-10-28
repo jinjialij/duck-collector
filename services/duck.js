@@ -27,17 +27,20 @@ async function createLocation(location) {
     ]
   );
 
-  let message = "Error in creating location";
+  const data = {
+    message: "Error in creating location",
+  };
 
   if (result.affectedRows) {
-    message = "Location created successfully";
+    data.message = "Location created successfully, but cannot get inserted id";
   }
+
   if (result.insertId) {
-    return result.insertId;
+    data.insertedId = result.insertId;
   }
 
   return {
-    message,
+    data,
   };
 }
 
@@ -53,17 +56,21 @@ async function createDuck(duck) {
       duck.locationId,
     ]
   );
-  let message = "Error in creating location";
+
+  const data = {
+    message: "Error in creating duck",
+  };
 
   if (result.affectedRows) {
-    message = "Location created successfully";
+    data.message = "Duck created successfully, but cannot get inserted id";
   }
+
   if (result.insertId) {
-    return result.insertId;
+    data.insertedId = result.insertId;
   }
 
   return {
-    message,
+    data,
   };
 }
 
