@@ -42,7 +42,7 @@ To build and run the application you need:
 > **Note**  
 > This application connects to a cloud hosting database by default.
 
-1. **(Optional)** Use your own/local database
+3. **(Optional)** Use your own/local database
 
    i. add database credentials in your environment variable
 
