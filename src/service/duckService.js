@@ -13,7 +13,7 @@ async function createLocation(location) {
 
     return data;
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
@@ -30,7 +30,6 @@ async function createDuck(duck, locationId) {
       },
       body: reqbody,
     });
-
     const data = await response.json();
 
     return data;

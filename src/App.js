@@ -6,21 +6,25 @@ import { createLocation, createDuck } from "./service/duckService";
 import "./App.css";
 import Container from "react-bootstrap/Container";
 
-import DataForm from "./cmponents/DataForm/DataForm";
-import DuckTable from "./cmponents/DuckRecords/DuckTable";
-import MainNavigation from "./cmponents/Navigation/MainNavgation";
+import DataForm from "./components/DataForm/DataForm";
+import DuckRecords from "./components/DuckRecords/DuckRecords";
+import MainNavigation from "./components/Navigation/MainNavgation";
+import Formpage from "./components/DataForm/Formpage";
 
 function App() {
   const [ducks, setDucks] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     fetchDataHandler();
   }, []);
 
   async function fetchDataHandler() {
+    setIsLoading(true);
     const response = await fetch("http://localhost:5000/ducks");
     const data = await response.json();
     setDucks(data.rows);
+    setIsLoading(false);
   }
 
   async function addDataHandler(duck) {
@@ -34,7 +38,6 @@ function App() {
     };
     try {
       const locationId = await createLocation(location);
-
       //post duck to db after retrive locationId
       if (locationId) {
         const duckId = await createDuck(duck, locationId);
@@ -42,6 +45,7 @@ function App() {
         setDucks((prev) => {
           return [...prev, duck];
         });
+        alert("Submit successfully, Thank you!");
       }
     } catch (error) {
       console.log(error);
@@ -55,10 +59,12 @@ function App() {
       <Container>
         <Switch>
           <Route path="/" exact={true}>
-            <DataForm onAddDuckData={addDataHandler} />
+            <Formpage>
+              <DataForm onAddDuckData={addDataHandler} />
+            </Formpage>
           </Route>
           <Route path="/ducks">
-            <DuckTable ducks={ducks} />
+            <DuckRecords ducks={ducks} isLoading={isLoading} />
           </Route>
         </Switch>
       </Container>

@@ -1,5 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { unmountComponentAtNode } from "react-dom";
+import { MemoryRouter } from "react-router-dom";
+import "@testing-library/jest-dom";
 import DataForm from "./DataForm";
 
 let container = null;
@@ -18,13 +20,21 @@ afterEach(() => {
 
 describe("Test DuckForm components", () => {
   test("renders check if there is a button", () => {
-    render(<DataForm />);
+    render(
+      <MemoryRouter>
+        <DataForm />
+      </MemoryRouter>
+    );
     const buttonElement = screen.getByRole("button");
     expect(buttonElement).toBeInTheDocument();
   });
 
   test("renders check if there is option element", () => {
-    render(<DataForm />);
+    render(
+      <MemoryRouter>
+        <DataForm />
+      </MemoryRouter>
+    );
     const optionElement = screen.queryAllByRole("option").toLocaleString();
     expect(optionElement).toBe(
       `[object HTMLOptionElement],[object HTMLOptionElement],[object HTMLOptionElement],[object HTMLOptionElement]`,

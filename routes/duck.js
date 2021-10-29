@@ -6,7 +6,7 @@ router.get("/", async function (req, res, next) {
   try {
     res.json(await duck.getAllDucks(req.query));
   } catch (err) {
-    console.error(`Error while getting programming languages `, err.message);
+    console.error(`Error while getting duck data `, err.message);
     next(err);
   }
 });

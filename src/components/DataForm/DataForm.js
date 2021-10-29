@@ -20,15 +20,25 @@ const DataForm = (props) => {
 
   const schema = Yup.object().shape({
     record_datetime: Yup.string().required("Required"),
-    duck_num: Yup.number().required("Required"),
-    food: Yup.string().required("Required"),
-    food_volume: Yup.number().required("Required"),
+    duck_num: Yup.number()
+      .required("Required")
+      .integer("Must be an integer")
+      .moreThan(0, "Should be positive"),
+    food: Yup.string().required("Required").min(1).max(255),
+    food_volume: Yup.number()
+      .required("Required")
+      .moreThan(0, "Should be positive")
+      .test(
+        "maxDigits",
+        "volume field must at most have 3 digits or less",
+        (number) => Number.isInteger(number * 10 ** 3)
+      ),
     food_unit: Yup.string().required("Required"),
-    address: Yup.string().required("Required"),
-    city: Yup.string().required("Required"),
-    state: Yup.string().required("Required"),
-    country: Yup.string().required("Required"),
-    postcode: Yup.string().required("Required"),
+    address: Yup.string().required("Required").min(1).max(255),
+    city: Yup.string().required("Required").min(1).max(45),
+    state: Yup.string().required("Required").min(1).max(45),
+    country: Yup.string().required("Required").min(1).max(45),
+    postcode: Yup.string().required("Required").min(1).max(11),
   });
 
   return (
@@ -44,7 +54,7 @@ const DataForm = (props) => {
     >
       {(formik) => (
         <div>
-          <h1 className="mt-5 mb-3 text-center">Duck Data Form</h1>
+          <h1 className="mt-3 mb-3 text-center">Duck Data Form</h1>
           <Form>
             <FormField
               label="Date and time"
@@ -66,7 +76,7 @@ const DataForm = (props) => {
             <FormField label="Post/Zip code" name="postcode" type="text" />
             <div className="text-center">
               <button
-                className="btn btn-primary mb-3 mt-2 justify"
+                className="btn btn-primary mb-5 mt-2 justify"
                 type="submit"
               >
                 Submit
