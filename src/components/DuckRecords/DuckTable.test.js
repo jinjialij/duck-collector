@@ -1,5 +1,6 @@
 import DuckTable from "./DuckTable";
 import { render, unmountComponentAtNode } from "react-dom";
+import { MemoryRouter } from "react-router-dom";
 import { act } from "react-dom/test-utils";
 
 let container = null;
@@ -17,27 +18,32 @@ afterEach(() => {
 });
 
 describe("Test DuckTable components", () => {
-  test("renders with or without a name", () => {
+  test("renders with dummy data", () => {
     const DUMMY_DATA = [
       {
         id: 1,
         address: "123 sss str",
         city: "halifax",
         country: "ca",
-        duckNum: 12,
+        duck_num: 12,
         food: "corn",
-        foodUnit: "g",
-        foodVol: 50,
+        food_unit: "g",
+        food_volume: 50,
         postcode: "abccda",
-        recordDatetime: "2021-10-27T22:16",
+        record_datetime: "2021-10-27T22:16",
         state: "ns",
       },
     ];
     act(() => {
-      render(<DuckTable ducks={DUMMY_DATA} />, container);
+      render(
+        <MemoryRouter>
+          <DuckTable ducks={DUMMY_DATA} />
+        </MemoryRouter>,
+        container
+      );
     });
-    expect(container.textContent).toBe(
-      "#AddressCityState/ProvinceCountryPost/Zip codeFoodUintVolumeNumbers Of Feed DuckDate and Time1123 sss strhalifaxnscaabccdacorn50g122021-10-27T22:16",
+    expect(container.textContent).toContain(
+      "Date and TimeDuck NumberFoodFood VolumeFood UintAddressCityState/ProvinceCountryPost/Zip code",
       { exact: false }
     );
   });

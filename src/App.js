@@ -1,50 +1,70 @@
 import { Route, Switch } from "react-router-dom";
+import { useState, useEffect } from "react";
+
+import { createLocation, createDuck } from "./service/duckService";
 
 import "./App.css";
-import DataForm from "./cmponents/DataForm/DataForm";
-import DuckTable from "./cmponents/DuckRecords/DuckTable";
 import Container from "react-bootstrap/Container";
-import MainNavigation from "./cmponents/Navigation/MainNavgation";
+
+import DataForm from "./components/DataForm/DataForm";
+import DuckRecords from "./components/DuckRecords/DuckRecords";
+import MainNavigation from "./components/Navigation/MainNavgation";
+import Formpage from "./components/DataForm/Formpage";
 
 function App() {
-  const DUMMY_DATA = [
-    {
-      id: 1,
-      address: "123 sss str",
-      city: "halifax",
-      country: "ca",
-      duckNum: 12,
-      food: "corn",
-      foodUnit: "g",
-      foodVol: 50,
-      postcode: "abccda",
-      recordDatetime: "2021-10-27T22:16",
-      state: "ns",
-    },
-    {
-      id: 2,
-      address: "567 ddd str",
-      city: "toronto",
-      country: "ca",
-      duckNum: 120,
-      food: "corn",
-      foodUnit: "g",
-      foodVol: 500,
-      postcode: "1yykue",
-      recordDatetime: "2021-10-28T10:16",
-      state: "on",
-    },
-  ];
+  const [ducks, setDucks] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    fetchDataHandler();
+  }, []);
+
+  async function fetchDataHandler() {
+    setIsLoading(true);
+    const response = await fetch("http://localhost:5000/ducks");
+    const data = await response.json();
+    setDucks(data.rows);
+    setIsLoading(false);
+  }
+
+  async function addDataHandler(duck) {
+    //post location to db
+    const location = {
+      address: duck.address,
+      city: duck.city,
+      state: duck.state,
+      country: duck.country,
+      postcode: duck.postcode,
+    };
+    try {
+      const locationId = await createLocation(location);
+      //post duck to db after retrive locationId
+      if (locationId) {
+        const duckId = await createDuck(duck, locationId);
+        duck.id = duckId;
+        setDucks((prev) => {
+          return [...prev, duck];
+        });
+        alert("Submit successfully, Thank you!");
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Failed to submit form");
+    }
+  }
+
   return (
     <>
       <MainNavigation />
       <Container>
         <Switch>
           <Route path="/" exact={true}>
-            <DataForm />
+            <Formpage>
+              <DataForm onAddDuckData={addDataHandler} />
+            </Formpage>
           </Route>
           <Route path="/ducks">
-            <DuckTable ducks={DUMMY_DATA} />
+            <DuckRecords ducks={ducks} isLoading={isLoading} />
           </Route>
         </Switch>
       </Container>
