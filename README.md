@@ -21,9 +21,9 @@ To build and run the application you need:
 - [Node >= 14.0.0 and npm >= 5.6](https://nodejs.org/en/)
 - install npm-install package
 
-```cmd
-npm i npm-install
-```
+   ```cmd
+   npm i npm-install
+   ```
 
 ### Installing
 
@@ -35,9 +35,9 @@ npm i npm-install
 
 2. Install NPM packages
 
-```cmd
-npm install
-```
+   ```cmd
+   npm install
+   ```
 
 > **Note**  
 > This application connects to a cloud hosting database by default.
