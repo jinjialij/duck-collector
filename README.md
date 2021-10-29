@@ -4,11 +4,9 @@ This web app is a website that allows user to submit and review duck feed inform
 
 ### Built with
 
-[Express] (http://expressjs.com/)
-
 React.js, bootstrapped with [Create React App](https://github.com/facebook/create-react-app)
 
-MySQL version 8.0.23
+[Express](http://expressjs.com/)
 
 [Bootstrap](https://react-bootstrap.github.io/)
 
@@ -24,6 +22,7 @@ To build and run the application you need:
    ```cmd
    npm i npm-install
    ```
+- (To use your local database) MySQL version 8.0.23
 
 ### Installing
 
