@@ -32,9 +32,10 @@ To build and run the application you need:
    git clone git@github.com:jinjialij/duck-collector.git
    ```
 
-2. Install NPM packages
+2. Change to duck-collector and Install NPM packages
 
    ```cmd
+   cd duck-collerctor
    npm install
    ```
 
